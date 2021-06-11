@@ -1,10 +1,13 @@
-import pyautogui
+import discord, pyautogui
 
-# import discord, pyautogui
 # from discord.ext import commands, tasks
 # from discord.utils import get
 # from discord_slash import SlashCommand, SlashCommandOptionType, SlashContext
 # from discord import Permissions
+
+TOKEN = 'ODUzMDQ0OTgyNTA3NjM0NzA4.YMPqDA.nMpfAgeWeKCFsUeFs-Rp9OS0skg'
+
+client = discord.Client()
 
 add_prof_ship_info_f_name_cords = None
 add_prof_bill_info_f_name_cords = None
@@ -31,5 +34,25 @@ def get_add_profile_first_names():
     add_prof_payment_details_f_name_cords = cords[2]
 
 
-minimize_pycharm_dark_mode()
-get_add_profile_first_names()
+# minimize_pycharm_dark_mode()
+# get_add_profile_first_names()
+@client.event
+async def on_message(message):
+    # we do not want the bot to reply to itself
+    if message.author == client.user:
+        return
+
+    if message.content.startswith('!hello'):
+        msg = 'Hello {0.author.mention}'.format(message)
+        await message.channel.send(msg)
+
+
+@client.event
+async def on_ready():
+    print('Logged in as')
+    print(client.user.name)
+    print(client.user.id)
+    print('------')
+
+
+client.run(TOKEN)
